@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - 智能學習平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 進入動畫 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="logo-animation">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>StudyHub</h1>
+            </div>
+            <p>智能學習平台</p>
+            <div class="loading-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主頁面 -->
+    <div id="main-page" class="main-page hidden">
+        <!-- 導航欄 -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyHub</span>
+            </div>
+            <div class="nav-actions">
+                <button id="login-btn" class="btn btn-outline">登入</button>
+                <button id="register-btn" class="btn btn-primary">註冊</button>
+                <select id="language-select" class="language-select">
+                    <option value="zh-TW">繁體中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                </select>
+            </div>
+        </nav>
+
+        <!-- 英雄區域 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>連接全球學習者</h1>
+                <p>智能匹配學習夥伴 • 即時交流討論 • 多元學習資源</p>
+                <div class="hero-actions">
+                    <button id="hero-login-btn" class="btn btn-primary btn-large">開始學習</button>
+                    <button id="hero-features-btn" class="btn btn-outline btn-large">了解更多</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="card card-1">
+                        <i class="fas fa-users"></i>
+                        <span>智能匹配</span>
+                    </div>
+                    <div class="card card-2">
+                        <i class="fas fa-comments"></i>
+                        <span>即時聊天</span>
+                    </div>
+                    <div class="card card-3">
+                        <i class="fas fa-book"></i>
+                        <span>資源共享</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能特色 -->
+        <section class="features">
+            <div class="container">
+                <h2>平台特色</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <h3>智能好友系統</h3>
+                        <p>根據學習興趣和目標，智能推薦適合的學習夥伴</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <h3>多模式聊天</h3>
+                        <p>一對一私訊、群組討論、全域聊天廣場</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>多語言支援</h3>
+                        <p>支援繁體中文、英文、日文、韓文即時切換</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>學習分析</h3>
+                        <p>追蹤學習進度，提供個人化學習建議</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用流程 -->
+        <section class="workflow">
+            <div class="container">
+                <h2>如何使用</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>註冊帳號</h3>
+                        <p>快速註冊，設定學習興趣和目標</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>尋找夥伴</h3>
+                        <p>透過智能推薦或搜尋找到學習夥伴</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>開始學習</h3>
+                        <p>聊天討論、分享資源、共同進步</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 登入模態框 -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>登入帳號</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-username">用戶名</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">密碼</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">登入</button>
+            </form>
+            <div class="auth-switch">
+                <p>還沒有帳號？ <a href="#" id="switch-to-register">立即註冊</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 註冊模態框 -->
+    <div id="register-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>註冊帳號</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">用戶名</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">電子郵件</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-display-name">顯示名稱</label>
+                    <input type="text" id="register-display-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">密碼</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">確認密碼</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">註冊</button>
+            </form>
+            <div class="auth-switch">
+                <p>已有帳號？ <a href="#" id="switch-to-login">立即登入</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登入後主界面 -->
+    <div id="app-container" class="app-container hidden">
+        <!-- 左側導航欄 -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <img id="user-avatar" src="" alt="頭像" class="avatar">
+                    <div class="user-details">
+                        <span id="user-display-name" class="display-name"></span>
+                        <span id="user-status" class="user-status">在線</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="menu-section">
+                    <h3>主要功能</h3>
+                    <ul>
+                        <li class="menu-item active" data-page="dashboard">
+                            <i class="fas fa-home"></i>
+                            <span>儀表板</span>
+                        </li>
+                        <li class="menu-item" data-page="friends">
+                            <i class="fas fa-user-friends"></i>
+                            <span>好友管理</span>
+                        </li>
+                        <li class="menu-item" data-page="chat">
+                            <i class="fas fa-comments"></i>
+                            <span>聊天系統</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-section">
+                    <h3>學習專區</h3>
+                    <ul>
+                        <li class="menu-item" data-page="study">
+                            <i class="fas fa-book"></i>
+                            <span>學科討論</span>
+                        </li>
+                        <li class="menu-item" data-page="resources">
+                            <i class="fas fa-share-alt"></i>
+                            <span>資源共享</span>
+                        </li>
+                        <li class="menu-item" data-page="study-room">
+                            <i class="fas fa-door-open"></i>
+                            <span>虛擬自習室</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-section">
+                    <h3>個人中心</h3>
+                    <ul>
+                        <li class="menu-item" data-page="profile">
+                            <i class="fas fa-user"></i>
+                            <span>我的檔案</span>
+                        </li>
+                        <li class="menu-item" data-page="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>系統設定</span>
+                        </li>
+                        <li id="admin-menu" class="menu-item hidden" data-page="admin">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>管理員面板</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主內容區域 -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="page-title">儀表板</h1>
+                <div class="header-actions">
+                    <button id="logout-btn" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i>
+                        登出
+                    </button>
+                </div>
+            </div>
+
+            <!-- 動態內容區域 -->
+            <div id="content-area" class="content-area">
+                <!-- 內容將由 JavaScript 動態載入 -->
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
