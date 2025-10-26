@@ -232,8 +232,8 @@ function updateUserInfo() {
         
         // 設定頭像（如果有）
         const avatarElement = document.getElementById('user-avatar');
-        if (currentUser.avatar_url) {
-            avatarElement.src = currentUser.avatar_url;
+        if (currentUser?.avatar_url || "" || "") {
+            avatarElement.src = currentUser?.avatar_url || "" || "";
         } else {
             // 使用顯示名稱的首字母作為頭像
             avatarElement.textContent = currentUser.display_name.charAt(0).toUpperCase();
@@ -704,8 +704,8 @@ function loadProfilePage(container) {
         <div class="profile-page">
             <div class="profile-header">
                 <div class="profile-avatar-large">
-                    ${currentUser.avatar_url ? 
-                        `<img src="${currentUser.avatar_url}" alt="${currentUser.display_name}">` :
+                    ${currentUser?.avatar_url || "" || "" ? 
+                        `<img src="${currentUser?.avatar_url || "" || ""}" alt="${currentUser.display_name}">` :
                         `<span>${currentUser.display_name.charAt(0).toUpperCase()}</span>`
                     }
                 </div>
