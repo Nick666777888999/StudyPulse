@@ -49,15 +49,6 @@ function checkSavedAuth() {
     const savedUser = localStorage.getItem('currentUser');
     
     if (savedToken && savedUser) {
-        authToken = savedToken;
-        currentUser = JSON.parse(savedUser);
-    }
-}
-
-// 綁定事件監聽器
-function bindEventListeners() {
-    // 導航按鈕
-    document.getElementById('login-btn').addEventListener('click', showLoginModal);
     document.getElementById('register-btn').addEventListener('click', showRegisterModal);
     document.getElementById('hero-login-btn').addEventListener('click', showLoginModal);
     
@@ -982,5 +973,31 @@ async function apiRequest(endpoint, options = {}) {
     } catch (error) {
         console.error('API 請求錯誤:', error);
         throw error;
+    }
+}// 替換 checkSavedAuth 函數
+function checkSavedAuth() {
+    try {
+        const savedToken = localStorage.getItem('authToken');
+        const savedUser = localStorage.getItem('currentUser');
+        
+        if (savedToken && savedUser) {
+            // 添加錯誤處理
+            const userData = JSON.parse(savedUser);
+            if (userData && typeof userData === 'object') {
+                authToken = savedToken;
+                currentUser = userData;
+                console.log('✅ 從本地儲存恢復登入狀態');
+            } else {
+                // 如果資料損壞，清除它
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('currentUser');
+                console.log('🔄 清除損壞的登入資料');
+            }
+        }
+    } catch (error) {
+        console.error('❌ 讀取本地儲存失敗:', error);
+        // 清除損壞的資料
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('currentUser');
     }
 }
