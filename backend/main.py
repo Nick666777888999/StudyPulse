@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# CORS 設定
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -13,20 +14,16 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "StudyPulse API is running!"}
+    return {"message": "API is working!"}
 
 @app.get("/api/")
 async def api_root():
-    return {"message": "API endpoints are working!"}
+    return {"status": "success", "endpoints": ["/", "/api/", "/api/test"]}
 
 @app.get("/api/test")
 async def test():
-    return {"status": "success", "message": "Test endpoint works"}
+    return {"test": "ok"}
 
 @app.post("/api/login")
-async def login_test():
-    return {"success": True, "message": "Login endpoint placeholder", "token": "test-token"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+async def login():
+    return {"success": True, "token": "test-token-123"}
