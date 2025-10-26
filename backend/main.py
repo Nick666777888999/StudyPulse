@@ -1,7 +1,8 @@
+# backend/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(title="StudyPulse API")
 
 # CORS 設定
 app.add_middleware(
@@ -14,94 +15,55 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "API is working!"}
+    return {"message": "StudyPulse API is running!"}
 
 @app.get("/api/")
 async def api_root():
-    return {"status": "success", "endpoints": ["/", "/api/", "/api/test"]}
-
-@app.get("/api/test")
-async def test():
-    return {"test": "ok"}
+    return {
+        "status": "success", 
+        "endpoints": {
+            "login": "/api/login",
+            "register": "/api/register",
+            "friends": "/api/friends",
+            "chat": "/api/chat"
+        }
+    }
 
 @app.post("/api/login")
 async def login():
-    return {"success": True, "token": "test-token-123"}
-
-# 好友系統 API
-@app.get("/api/friends")
-async def get_friends():
-    return {"success": True, "friends": []}
-
-@app.get("/api/friends/requests")
-async def get_friend_requests():
-    return {"success": True, "requests": []}
-
-@app.post("/api/friends/request")
-async def send_friend_request():
-    return {"success": True, "message": "Friend request sent"}
-
-# 用戶資料 API
-@app.get("/api/user/profile")
-async def get_user_profile():
     return {
-        "success": True, 
-        "profile": {
-            "display_name": "Test User",
+        "success": True,
+        "token": "jwt-token-12345",
+        "user": {
+            "id": "1",
             "username": "testuser",
-            "email": "test@example.com",
-            "avatar_url": null,
-            "bio": "這是測試用戶",
-            "interests": ["程式設計", "學習"],
+            "display_name": "測試用戶",
+            "email": "test@studypulse.com",
             "is_admin": False
         }
     }
 
-# 管理員 API
-@app.get("/api/admin/dashboard")
-async def admin_dashboard():
-    return {
-        "success": True, 
-        "stats": {
-            "total_users": 1,
-            "new_users_today": 0,
-            "total_friendships": 0,
-            "total_messages": 0
-        }
-    }
+@app.post("/api/register")
+async def register():
+    return {"success": True, "message": "註冊成功"}
 
-@app.get("/api/admin/users")
-async def admin_users():
+@app.get("/api/friends")
+async def get_friends():
     return {
         "success": True,
-        "users": [
+        "friends": [
             {
                 "id": "1",
-                "username": "Nick20130104", 
-                "display_name": "管理員",
-                "email": "admin@example.com",
-                "is_admin": True
+                "username": "user1",
+                "display_name": "小明",
+                "avatar_url": None
             }
         ]
     }
 
-# 添加所有缺失的 API 端點
-@app.get("/api/friends")
-async def get_friends():
-    return {"success": True, "friends": []}
-
-@app.get("/api/friends/requests") 
-async def get_friend_requests():
-    return {"success": True, "requests": []}
-
-@app.post("/api/friends/request")
-async def send_friend_request():
-    return {"success": True, "message": "Friend request sent"}
-
-@app.get("/api/user/profile")
-async def get_user_profile():
-    return {"success": True, "profile": {"display_name": "用戶", "avatar_url": null}}
-
-@app.get("/api/admin/dashboard")
-async def admin_dashboard():
-    return {"success": True, "stats": {"total_users": 1, "new_users_today": 0, "total_friendships": 0, "total_messages": 0}}
+@app.get("/api/chat/messages")
+async def get_messages():
+    return {
+        "success": True,
+        "messages": []
+    }
