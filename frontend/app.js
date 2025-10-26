@@ -1,5 +1,5 @@
 // API 基礎 URL - 根據部署環境調整
-const API_BASE_URL = 'https://your-backend-domain.vercel.app/api';
+const API_BASE_URL = 'https://study-pulse-beta.vercel.app/api';
 
 // 全域狀態
 let currentUser = null;
